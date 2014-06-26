@@ -6,14 +6,12 @@
 # Create a reverse index of the tags as a special index so users can see all posts that 
 # correspond to a specific tag. In addition, this tag based reverse index could be used 
 # by the Forum UI to show other similar posts based on the tags.
+#
+# Output from mapper will be:
+# 
+# <question node id>   <tag>
+#
 ##########################################################################################
-
-"""
-Output from mapper will be:
-
-<question node id>   <tag>
-
-"""
 
 import sys
 import csv
@@ -29,6 +27,7 @@ import csv
 def mapper():
     debug = False
     reader = csv.reader(sys.stdin, delimiter='\t')
+    # read all records
     for line in reader:
         if len(line) == 19:
             # parse the line of forum
@@ -40,7 +39,7 @@ def mapper():
             if (id == "id"): continue
             
             # process answer node
-            # emit all the tags similar to word count
+            # emit all the tags similar for inverted index
             # emit all tags from questions, answers, and comments
             for word in tagnames.strip().split(" "):
                 if (node_type=="answer"):
@@ -50,7 +49,7 @@ def mapper():
                     print "{0}\t{1}".format(word, id )
                 elif (node_type=="comment"):
                     print "{0}\t{1}".format(word, abs_parent_id )
-                else:  # skip comments
+                else:  # skip unkowns
                     continue
         else:
             # for debug only print the line we rejected for not being of length 19
