@@ -9,3 +9,8 @@ The first improvement would be to create a reverse index of the tags as a specia
 
 The tag_index_mapper.py mapper and the tag_index_reducer.py reducer are Python files to be used with Hadoop Streaming.  The sample forum data can be found in forum_node.tsv.
 
+Unix pipeline testing can be run by using:
+    **bold** cat forum_node.tsv | ./tag_index_mapper.py | sort | ./tag_index_reducer.py 
+Running Hadoop on using my configuration is:
+    **bold** hadoop jar /usr/lib/hadoop-0.20-mapreduce/contrib/streaming/hadoop-streaming-2.0.0-mr1-cdh4.1.1.jar -mapper tag_index_mapper -reducer tag_index_reducer.py -file tag_index_mapper -file tag_index_reducer.py -input <HDFS location of forum_node.tsv>  -output <HDFS output directory>
+    
