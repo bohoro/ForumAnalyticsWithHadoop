@@ -21,14 +21,14 @@ Running Hadoop on using my configuration is:
 
 One interesting thing I would like to know is who are the top 10 answerers of questions (Solution Providers) on the forum.  This could be derived using a summarization and filtering pattern to aggregate counts for answers based on userid and then compute the 10 tens answerers.
 
-The top_solutions_mapper.py mapper and the top_solution_reducer.py reducer are Python files to be used with Hadoop Streaming implement the Top 10 Solution Providers concept.  The sample forum data can be found in forum_node.tsv.
+The top_solutions_mapper.py mapper and the top_solution_reducer.py reducer are Python files to be used with Hadoop Streaming to implement the Top 10 Solution Providers concept.  The sample forum data can be found in forum_node.tsv.
 
 Unix pipeline testing can be run by using:
 
-    cat forum_node.tsv | ./top_solutions_mapper.py | sort | ./tag_index_reducer.py 
+    cat forum_node.tsv | ./top_solutions_mapper.py | sort | ./top_solution_reducer.py 
 
 Running Hadoop on using my configuration is:
 
-    hadoop jar /usr/lib/hadoop-0.20-mapreduce/contrib/streaming/hadoop-streaming-2.0.0-mr1-cdh4.1.1.jar -mapper top_solutions_mapper.py -reducer tag_index_reducer.py -file top_solutions_mapper.py -file tag_index_reducer.py -input <HDFS location of forum_node.tsv>  -output <HDFS output directory>
+    hadoop jar /usr/lib/hadoop-0.20-mapreduce/contrib/streaming/hadoop-streaming-2.0.0-mr1-cdh4.1.1.jar -mapper top_solutions_mapper.py -reducer top_solution_reducer.py -file top_solutions_mapper.py -file top_solution_reducer.py -input <HDFS location of forum_node.tsv>  -output <HDFS output directory>
     
 
