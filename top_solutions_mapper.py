@@ -24,7 +24,7 @@ import csv
 # A given input pair may map to zero or many output pairs.
 ##########################################################################################
 def mapper():
-    debug = False
+    debug = True
     reader = csv.reader(sys.stdin, delimiter='\t')
     for line in reader:
         if len(line) == 19:
@@ -36,7 +36,7 @@ def mapper():
             if (id == "id"): continue
             # In order to find the hour posted, please use the date_added field and NOT 
             #  the last_activity_at field
-            if node_type=="answer":
+            if node_type.strip()=="answer":
                 print "{0}\t{1}".format(author_id.strip(), 1 )
         else:
             # for debug only print the line we rejected for not being of length 19
